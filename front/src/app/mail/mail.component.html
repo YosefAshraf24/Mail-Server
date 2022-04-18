@@ -1,0 +1,214 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+<body>
+  <div id="searchOptions" style="transform: rotate(
+      90deg);
+      display: none;position: fixed;z-index: 1000;width: 100px; top: 94px;left: 1100px;height: 34;">
+    <div class="emailList__settingsLeft">
+      <span class="material-icons" (click)="setFilter('from')" title="Sender" style="transform: rotate(
+        -90deg);margin-left: 10px; cursor: pointer;">
+        person
+      </span>
+      <span class="material-icons" (click)="setFilter('time')" title="Date" style="display:block;margin-left: 10px; cursor: pointer;transform: rotate(
+          -90deg);">
+        date_range
+      </span>
+      <div>
+        <span class="material-icons" (click)="setFilter('subject')" title="Subject" style="margin-left: 10px; cursor: pointer;transform: rotate(
+            -90deg);">
+          title
+        </span>
+      </div>
+      <span class="material-icons" (click)="setFilter('body')" title="Mail Body" style="margin-left: 10px; cursor: pointer;transform: rotate(
+        -90deg);">
+        subject
+      </span>
+    </div>
+  </div>
+  <div id="bulkOptions"
+    style="display: none;position: absolute;z-index: 1000;width: 100px; background-color: white; top: 94px;left: 350px;height: 34;">
+    <div class="emailList__settingsLeft">
+      <span class="material-icons" id="trashSelected" style="margin-left: 10px; cursor: pointer;"
+        (click)="trashSelected()">
+        delete
+      </span>
+      <span class="material-icons" id="starSelected" title="Star Selected" style="margin-left: 10px; cursor: pointer;"
+        (click)="starSelected()">
+        star_border </span>
+      <span class="material-icons" style="margin-left: 10px; cursor: pointer;"> more_vert </span>
+    </div>
+  </div>
+  <div id="sortoptions"
+    style="display: none;position: absolute;z-index: 1000;width: 100px; background-color: white; top: 94px;left: 430px;height: 34;">
+    <div class="emailList__settingsLeft">
+      <span class="material-icons" (click)="sort('from')" title="Sender" style="margin-left: 10px; cursor: pointer;">
+        person
+      </span>
+      <span class="material-icons" (click)="sort('time')" title="Date" style="margin-left: 10px; cursor: pointer;">
+        date_range
+      </span>
+      <span class="material-icons" (click)="sort('subject')" title="Subject"
+        style="margin-left: 10px; cursor: pointer;">
+        title
+      </span>
+      <span class="material-icons" (click)="sort('body')" title="Mail Body" style="margin-left: 10px; cursor: pointer;">
+        subject
+      </span>
+    </div>
+  </div>
+  <!-- Header Starts -->
+  <div class="header">
+    <div class="header__left">
+      <img style="margin-left: 0px;width: 180px;" src="../../assets/logo.png" alt="" />
+    </div>
+
+    <div class="header__middle">
+      <span class="material-icons"> search </span>
+      <input type="text" id="searchIn" placeholder="Search mail" (keyup)="search()"
+        (keydown.backspace)="show(this.state)" />
+      <span class="material-icons" style="cursor: pointer;" (click)="chooseSearch()"> arrow_drop_down </span>
+    </div>
+
+    <div class="header__right">
+      <span class="material-icons"> apps </span>
+      <span class="material-icons"> notifications </span>
+      <span class="material-icons" style="cursor: pointer;"> account_circle </span>
+      <span class="material-icons" (click)="logout()" title="Logout"> logout </span>
+    </div>
+  </div>
+  <!-- Header Ends -->
+
+  <!-- Main Body Starts -->
+  <div class="main__body">
+    <!-- Sidebar Starts -->
+    <div class="sidebar">
+      <button (click)="showCompose($event)" class="sidebar__compose"><span class="material-icons"> add
+        </span>Compose</button>
+      <div (click)="show('inbox');this.state='inbox';" id="inbox" class="sidebarOption sidebarOption__active">
+        <span class="material-icons"> inbox </span>
+        <h3>Inbox</h3>
+      </div>
+
+      <div (click)="show('starred');this.state='starred';" id="starred" class="sidebarOption">
+        <span class="material-icons"> star </span>
+        <h3>Starred</h3>
+      </div>
+
+      <div (click)="show('trash');this.state='trash';" id="trash" class="sidebarOption">
+        <span class="material-icons"> delete </span>
+        <h3>Trash</h3>
+      </div>
+
+      <div (click)="show('sent');this.state='sent';" id="sent" class="sidebarOption">
+        <span class="material-icons"> near_me </span>
+        <h3>Sent</h3>
+      </div>
+
+      <div (click)="show('draft');this.state='draft';" id="draft" class="sidebarOption">
+        <span class="material-icons"> note </span>
+        <h3>Drafts</h3>
+      </div>
+
+      <div class="sidebarOption" id="add" (click)="newFolder()">
+        <span class="material-icons"> add </span>
+        <h3>Add</h3>
+      </div>
+
+      <div class="sidebar__footer" id="sidebar__footer">
+        <div class="sidebar__footerIcons">
+          <span class="material-icons"> person </span>
+          <span class="material-icons"> duo </span>
+          <span class="material-icons"> phone </span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar Ends -->
+
+    <!-- Email List Starts -->
+    <div class="emailList">
+      <!-- Settings Starts -->
+      <div class="emailList__settings">
+        <div class="emailList__settingsLeft">
+          <input type="checkbox" id="selectall" title="Select All" (click)="selectall()" />
+          <span class="material-icons" (click)="reload()" title="Refresh"> refresh </span>
+          <span class="material-icons" title="sort" (click)="showsortoptions()"> sort </span>
+        </div>
+        <div class="emailList__settingsRight">
+          <span class="material-icons"> arrow_drop_down </span>
+          <span class="material-icons"> chevron_left </span>
+          <span class="material-icons"> chevron_right </span>
+          <span class="material-icons"> keyboard_hide </span>
+          <span class="material-icons"> settings </span>
+        </div>
+      </div>
+      <!-- Settings Ends -->
+
+      <!-- Section Starts -->
+      <div class="emailList__sections">
+        <div class="section section__selected">
+          <span class="material-icons"> inbox </span>
+          <h4>Primary</h4>
+        </div>
+
+        <div class="section">
+          <span class="material-icons"> people </span>
+          <h4>Social</h4>
+        </div>
+
+        <div class="section">
+          <span class="material-icons"> local_offer </span>
+          <h4>Promotions</h4>
+        </div>
+      </div>
+      <!-- Section Ends -->
+      <div id="compose"
+        style="display:none; height: 300px;width:500px; z-index: 1000; position:fixed;bottom:0px;right:50px; border: solid 1px black;background-color:white;">
+        <div style="background-color: black; height: 30px; color: white; cursor: pointer;" (click)="hide()">New
+          Message<span class="material-icons" style="float: right; cursor: pointer;" id="close">close</span><span
+            class="material-icons" style="float: right; cursor: pointer;" id="minimize">minimize</span></div>
+        <div class="field"><label class="label" for="subject">To :</label>
+          <input name="subject" id="mailreciver" type="text" class="input" placeholder="username"></div>
+
+        <div class="field"><label class="label" for="subject">Email Subject</label>
+          <input name="subject" id="mailsubject" type="text" class="input" placeholder="subject"></div>
+        <div class="field"><label class="label" for="body">Email Body</label>
+          <textarea class="textarea" name="body" id="mailbody" placeholder="email body"> </textarea></div>
+        <input id="path" type="file" style="visibility: hidden;">
+
+        <input type="file" (change)="selectFile($event)" #fileUpload multiple />
+        <div><input type="button" value="Send" class="button is-primary" (click)="send()"></div>
+
+      </div>
+      <div id="view" style="display:none;height: 1000px; z-index: 100; position:relative;">
+      </div>
+      <!-- Email List rows starts -->
+      <div class="emailList__list">
+        <!-- Email Row Starts -->
+        <!-- <div class="emailRow">
+          <div class="emailRow__options">
+            <input type="checkbox" name="" id="" />
+            <span class="material-icons"> star_border </span>
+            <span class="material-icons"> label_important </span>
+          </div>
+
+          <h3 class="emailRow__title">YouTube</h3>
+
+          <div class="emailRow__message">
+            <h4>
+              You Got a New Subscriber
+              <span class="emailRow__description"> - on Your Channel Future Coders </span>
+            </h4>
+          </div>
+
+          <p class="emailRow__time">10pm</p>
+        </div> -->
+        <!-- Email Row Ends -->
+      </div>
+      <!-- Email List rows Ends -->
+    </div>
+    <!-- Email List Ends -->
+  </div>
+  <!-- Main Body Ends -->
+</body>

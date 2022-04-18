@@ -1,0 +1,47 @@
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'>
+
+<body>
+  <div class="container">
+    <div class="screen">
+      <div class="screen__content">
+        <img style="position:fixed;top:110px;left:650px; width: 150px;" src="../../assets/logo.png">
+        <form class="login">
+          <div class="login__field">
+            <i class="login__icon fas fa-user"></i>
+            <input autofocus type="text" class="login__input" placeholder="User name"
+              (input)='name=$any($event.target).value' (keydown.enter)="login()">
+          </div>
+          <div class="login__field">
+            <i class="login__icon fas fa-lock"></i>
+            <input type="password" class="login__input" placeholder="Password"
+              (input)='password=$any($event.target).value' (keydown.enter)="login()">
+          </div>
+          <button (click)="login()" class="button login__submit" type="button">
+            <span class="button__text">Log In Now</span>
+            <i class="button__icon fas fa-chevron-right"></i>
+          </button>
+
+        </form>
+        <div class="social-login">
+          <a (click)="routeSignup()">
+            <h3 style="position: absolute;top: -56px;left: -151px; color:#6C63AC; cursor: pointer;">SignUp</h3>
+          </a>
+          <h3>log in via</h3>
+          <div class="social-icons">
+            <a href="" class="social-login__icon fab fa-instagram"></a>
+            <a href="" class="social-login__icon fab fa-facebook"></a>
+            <a href="" class="social-login__icon fab fa-twitter"></a>
+          </div>
+        </div>
+      </div>
+      <div class="screen__background">
+        <span class="screen__background__shape screen__background__shape4"></span>
+        <span class="screen__background__shape screen__background__shape3"></span>
+        <span class="screen__background__shape screen__background__shape2"></span>
+        <span class="screen__background__shape screen__background__shape1"></span>
+      </div>
+    </div>
+  </div>
+
+</body>
